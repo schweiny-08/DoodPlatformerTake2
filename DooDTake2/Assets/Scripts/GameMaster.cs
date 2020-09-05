@@ -8,6 +8,7 @@ public class GameMaster : MonoBehaviour{
     public GameObject player;
     private GameObject playerClone;
     private Vector2 spawnPoint;
+    private CameraFollow cf;
 
     private Transform fallPoint;
 
@@ -19,6 +20,7 @@ public class GameMaster : MonoBehaviour{
         //player = GameObject.Find("Player");
         spawnPoint = GameObject.Find("startPoint").transform.position;
         //fallPoint = GameObject.Find("fallPoint").transform;
+        cf = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
     }
 
     public void SetSpawnPoint(Vector2 sp) {
@@ -32,5 +34,6 @@ public class GameMaster : MonoBehaviour{
     public void Respawn() {
         Debug.Log("RESPAWN");
         Instantiate(player, spawnPoint, Quaternion.identity);
+        //cf.SetPlayer(player.transform);
     }
 }
