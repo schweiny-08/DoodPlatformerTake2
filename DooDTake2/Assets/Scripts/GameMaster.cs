@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class GameMaster : MonoBehaviour{
     public static GameMaster instance;
-
     public GameObject player;
+    
     private GameObject playerClone;
     private Vector2 spawnPoint;
     private CameraFollow cf;
-
     private Transform fallPoint;
+    private PlayerController playerCont;
 
     void Awake() {
         instance = this;
     }
 
     void Start() {
-        //player = GameObject.Find("Player");
         spawnPoint = GameObject.Find("startPoint").transform.position;
-        //fallPoint = GameObject.Find("fallPoint").transform;
         cf = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
     }
 
@@ -34,6 +32,6 @@ public class GameMaster : MonoBehaviour{
     public void Respawn() {
         Debug.Log("RESPAWN");
         Instantiate(player, spawnPoint, Quaternion.identity);
-        //cf.SetPlayer(player.transform);
+        playerCont = GetComponent<PlayerController>();
     }
 }

@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sr;
     private Animator anim;
     private bool isGrounded;
-    private int jump;
+    private int jump, health;
+    private GameMaster gm;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +26,17 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
         jump = 0;
         anim = GetComponent<Animator>();
+        health = 10;
+        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+    }
+
+    public void UpdateHealth(int h) {
+        health += h;
+        Debug.Log(health);
+        if (health <= 0) {
+            gm.Death(gameObject);
+            gm.Respawn();
+        }
     }
 
     // Update is called once per frame
@@ -61,6 +73,8 @@ public class PlayerController : MonoBehaviour
                 jump++;
             }
         }
+
+
     }
 
     void FixedUpdate()
