@@ -16,6 +16,12 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private int jump, health;
     private GameMaster gm;
+    private PlayerDamage pd;
+    
+    public float knockback;
+    public float knockbackCount;
+    public float knockbackLength;
+    public bool knockFromRight;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +34,15 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         health = 10;
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        pd = GameObject.FindWithTag("Enemy").GetComponent<PlayerDamage>();
     }
+
+   /* public void SetKnockbackVars(float k, float kc, float kl, bool kfr) {
+        knockback = k;
+        knockbackCount = kc;
+        knockbackLength = kl;
+        knockFromRight = kfr;
+    }*/
 
     public void UpdateHealth(int h) {
         health += h;
@@ -42,36 +56,50 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isGrounded)
+        if (knockbackCount <= 0)
         {
-            rb.gravityScale = 2.1f;
-        }
+            if (isGrounded)
+            {
+                rb.gravityScale = 2.1f;
+            }
 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            rb.velocity = new Vector2(-speed, rb.velocity.y);
-            sr.flipX = true;
-           anim.SetBool("isWalking", true);
-        }
-        else if (Input.GetKey(KeyCode.RightArrow))
-        {
-            rb.velocity = new Vector2(speed, rb.velocity.y);
-            sr.flipX = false;
-            anim.SetBool("isWalking", true);
+            if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                rb.velocity = new Vector2(-speed, rb.velocity.y);
+                sr.flipX = true;
+                anim.SetBool("isWalking", true);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                rb.velocity = new Vector2(speed, rb.velocity.y);
+                sr.flipX = false;
+                anim.SetBool("isWalking", true);
+            }
+            else
+            {
+                //Player is idle
+                anim.SetBool("isWalking", false);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (isGrounded || jump < 2)
+                {
+                    rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                    isGrounded = false;
+                    jump++;
+                }
+            }
         }
         else {
-            //Player is idle
-            anim.SetBool("isWalking", false);
-        }
+            //If player is knocked by enemy
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isGrounded || jump < 2)
-            {
-                rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-                isGrounded = false;
-                jump++;
-            }
+            if (knockFromRight)
+                rb.velocity = new Vector2(-knockback, knockback);
+            else
+                //If player is knocked from left
+                rb.velocity = new Vector2(knockback, knockback);
+            knockbackCount -= Time.deltaTime;
         }
 
 
