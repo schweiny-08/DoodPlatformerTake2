@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 339095159642597501}
   - component: {fileID: -579982438180911086}
   - component: {fileID: 4367944780291403456}
-  - component: {fileID: 1659462657040679032}
+  - component: {fileID: 56632661}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -194,7 +194,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpSpeed: 12
---- !u!114 &1659462657040679032
+  knockback: 5
+  knockbackCount: 0
+  knockbackLength: 0.2
+  knockFromRight: 0
+--- !u!114 &56632661
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
