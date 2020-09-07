@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     //Player's movement speed
     public float speed;
     public float jumpSpeed;
+    public Sprite deadDood;
 
 
     private Rigidbody2D rb;
@@ -17,6 +18,8 @@ public class PlayerController : MonoBehaviour
     private int jump, health;
     private GameMaster gm;
     private PlayerDamage pd;
+    private bool isDead;
+    private Vector2 doodSize;
     
     public float knockback;
     public float knockbackCount;
@@ -35,6 +38,8 @@ public class PlayerController : MonoBehaviour
         health = 10;
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
         pd = GameObject.FindWithTag("Enemy").GetComponent<PlayerDamage>();
+        isDead = false;
+        doodSize = sr.size;
     }
 
    /* public void SetKnockbackVars(float k, float kc, float kl, bool kfr) {
@@ -48,8 +53,16 @@ public class PlayerController : MonoBehaviour
         health += h;
         Debug.Log(health);
         if (health <= 0) {
-            gm.Death(gameObject);
-            gm.Respawn();
+
+            isDead = true;
+            rb.freezeRotation = false;
+            transform.rotation *= Quaternion.Euler(0, 0, 90f);// * 20f * Time.deltaTime);//10f = rotate speed
+
+            Debug.Log("Before");
+            StartCoroutine(Pause());
+            Debug.Log("After");
+
+            
         }
     }
 
@@ -58,37 +71,46 @@ public class PlayerController : MonoBehaviour
     {
         if (knockbackCount <= 0)
         {
-            if (isGrounded)
+            if (!isDead)
             {
-                rb.gravityScale = 2.1f;
-            }
-
-            if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                rb.velocity = new Vector2(-speed, rb.velocity.y);
-                sr.flipX = true;
-                anim.SetBool("isWalking", true);
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                rb.velocity = new Vector2(speed, rb.velocity.y);
-                sr.flipX = false;
-                anim.SetBool("isWalking", true);
-            }
-            else
-            {
-                //Player is idle
-                anim.SetBool("isWalking", false);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (isGrounded || jump < 2)
+                if (isGrounded)
                 {
-                    rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
-                    isGrounded = false;
-                    jump++;
+                    rb.gravityScale = 2.1f;
                 }
+
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    rb.velocity = new Vector2(-speed, rb.velocity.y);
+                    sr.flipX = true;
+                    anim.SetBool("isWalking", true);
+                }
+                else if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    rb.velocity = new Vector2(speed, rb.velocity.y);
+                    sr.flipX = false;
+                    anim.SetBool("isWalking", true);
+                }
+                else
+                {
+                    //Player is idle
+                    anim.SetBool("isWalking", false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    if (isGrounded || jump < 2)
+                    {
+                        rb.velocity = new Vector2(rb.velocity.x, jumpSpeed);
+                        isGrounded = false;
+                        jump++;
+                    }
+                }
+            }
+            else {
+                //if is dead
+                anim.runtimeAnimatorController = null;
+                sr.sprite = deadDood;
+                sr.size = doodSize;
             }
         }
         else {
@@ -100,6 +122,7 @@ public class PlayerController : MonoBehaviour
                 //If player is knocked from left
                 rb.velocity = new Vector2(knockback, knockback);
             knockbackCount -= Time.deltaTime;
+            
         }
 
 
@@ -120,5 +143,15 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = true;
         jump = 0;
+    }
+
+    public int GetHealth() {
+        return health;
+    }
+
+    IEnumerator Pause() {
+        yield return new WaitForSeconds(3f);
+        gm.Death(gameObject);
+        gm.Respawn();
     }
 }

@@ -194,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 8
   jumpSpeed: 12
+  deadDood: {fileID: 21300000, guid: d1107a2263167ec48809470ee6d4bd8e, type: 3}
   knockback: 5
   knockbackCount: 0
   knockbackLength: 0.2
