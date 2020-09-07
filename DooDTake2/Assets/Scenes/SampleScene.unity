@@ -728,23 +728,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &56632660 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8637535698939461854, guid: 47e7293b7ec3d6941813952c8a52b388, type: 3}
-  m_PrefabInstance: {fileID: 713377396}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &56632661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 56632660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: faf819ea59329e140b4e8a207482d89e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &378160477
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,7 +1016,7 @@ GameObject:
   - component: {fileID: 534021995}
   m_Layer: 0
   m_Name: redSpike
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1177,10 +1160,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1659462657040679032, guid: 47e7293b7ec3d6941813952c8a52b388, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8637535698939461827, guid: 47e7293b7ec3d6941813952c8a52b388, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.8258023
@@ -1229,8 +1208,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1659462657040679032, guid: 47e7293b7ec3d6941813952c8a52b388, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47e7293b7ec3d6941813952c8a52b388, type: 3}
 --- !u!1 &1082137454
 GameObject:
