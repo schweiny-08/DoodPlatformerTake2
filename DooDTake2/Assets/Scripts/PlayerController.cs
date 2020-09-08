@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
         jump = 0;
         anim = GetComponent<Animator>();
-        health = 10;
+        health = 4;
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
         pd = GameObject.FindWithTag("Enemy").GetComponent<PlayerDamage>();
         isDead = false;
@@ -49,8 +49,11 @@ public class PlayerController : MonoBehaviour
         knockFromRight = kfr;
     }*/
 
+
+
     public void UpdateHealth(int h) {
         health += h;
+        gm.SetPlayerHealth(health);
         Debug.Log(health);
         if (health <= 0) {
 
@@ -145,9 +148,12 @@ public class PlayerController : MonoBehaviour
         jump = 0;
     }
 
-    public int GetHealth() {
+    /*public int GetHealth() {
         return health;
     }
+    public int GetMaxHealth() {
+        return ma
+    }*/
 
     IEnumerator Pause() {
         yield return new WaitForSeconds(3f);

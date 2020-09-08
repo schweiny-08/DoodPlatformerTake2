@@ -12,6 +12,8 @@ public class GameMaster : MonoBehaviour{
     private Transform fallPoint;
     private PlayerController playerCont;
 
+    private int maxPlayerHealth, playerHealth;
+
     void Awake() {
         instance = this;
     }
@@ -19,10 +21,24 @@ public class GameMaster : MonoBehaviour{
     void Start() {
         spawnPoint = GameObject.Find("startPoint").transform.position;
         cf = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
+        maxPlayerHealth = 4;
+        playerHealth = maxPlayerHealth;
     }
 
     public void SetSpawnPoint(Vector2 sp) {
         spawnPoint = sp;
+    }
+
+    public void SetPlayerHealth(int h) {
+        playerHealth = h;
+    }
+
+    public int GetPlayerHealth() {
+        return playerHealth;
+    }
+
+    public int GetMaxPlayerHealth() {
+        return maxPlayerHealth;
     }
 
     public void Death(GameObject go) {
@@ -33,5 +49,6 @@ public class GameMaster : MonoBehaviour{
         Debug.Log("RESPAWN");
         Instantiate(player, spawnPoint, Quaternion.identity);
         playerCont = GetComponent<PlayerController>();
+        playerCont.UpdateHealth(maxPlayerHealth);
     }
 }

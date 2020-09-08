@@ -21,8 +21,8 @@ public class HealthSystem : MonoBehaviour{
         pc = GetComponent<PlayerController>();
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
 
-        maxHealth = gm.GetMaxHealth();
-        health = maxHealth;
+        /*maxHealth = gm.GetMaxHealth();
+        health = maxHealth;*/
     }
 
     // Update is called once per frame
