@@ -35,7 +35,7 @@ public class PlayerDamage : MonoBehaviour{
             //pc.knockbackLength = damagePoints / 10;
 
             pc.UpdateHealth(-damagePoints);
-
+            Debug.Log("HIT");
             //Setting knockback
             pc.knockbackCount = pc.knockbackLength;
 

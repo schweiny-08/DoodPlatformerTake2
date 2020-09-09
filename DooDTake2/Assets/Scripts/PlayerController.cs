@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private int jump, health;
     private GameMaster gm;
     private PlayerDamage pd;
+    private HealthSystem hs;
     private bool isDead;
     private Vector2 doodSize;
     
@@ -35,9 +36,11 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
         jump = 0;
         anim = GetComponent<Animator>();
-        health = 4;
+        
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        health = gm.GetMaxPlayerHealth();//Sets health to full
         pd = GameObject.FindWithTag("Enemy").GetComponent<PlayerDamage>();
+        hs = GetComponent<HealthSystem>();
         isDead = false;
         doodSize = sr.size;
     }

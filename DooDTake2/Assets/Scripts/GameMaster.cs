@@ -21,7 +21,7 @@ public class GameMaster : MonoBehaviour{
     void Start() {
         spawnPoint = GameObject.Find("startPoint").transform.position;
         cf = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
-        maxPlayerHealth = 4;
+        maxPlayerHealth = 8;
         playerHealth = maxPlayerHealth;
     }
 
@@ -48,7 +48,7 @@ public class GameMaster : MonoBehaviour{
     public void Respawn() {
         Debug.Log("RESPAWN");
         Instantiate(player, spawnPoint, Quaternion.identity);
-        playerCont = GetComponent<PlayerController>();
+        playerCont = player.GetComponent<PlayerController>();
         playerCont.UpdateHealth(maxPlayerHealth);
     }
 }

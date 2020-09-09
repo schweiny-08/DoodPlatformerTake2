@@ -149,6 +149,7 @@ MonoBehaviour:
   heartThreeFour: {fileID: 21300000, guid: be355fc984a0e034d837de4cd5144bff, type: 3}
   heartHalf: {fileID: 21300000, guid: 2f0d9ad5a3ebd0346bfcceaabaa790fb, type: 3}
   heartQuater: {fileID: 21300000, guid: bc8278531fd799942845b909a394270e, type: 3}
+  emptyHeart: {fileID: 21300000, guid: 861dae9621d28684ca050824e5b92d0f, type: 3}
   hearts:
   - {fileID: 2132887930}
   - {fileID: 986723433}
