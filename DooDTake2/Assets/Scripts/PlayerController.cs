@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private int jump, health;
     private GameMaster gm;
     private PlayerDamage pd;
+    private HealthSystem hs;
     private bool isDead;
     private Vector2 doodSize;
     
@@ -35,23 +36,19 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
         jump = 0;
         anim = GetComponent<Animator>();
-        health = 10;
+        
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        health = gm.GetMaxPlayerHealth();//Sets health to full
         pd = GameObject.FindWithTag("Enemy").GetComponent<PlayerDamage>();
+        hs = GetComponent<HealthSystem>();
         isDead = false;
         doodSize = sr.size;
     }
 
-   /* public void SetKnockbackVars(float k, float kc, float kl, bool kfr) {
-        knockback = k;
-        knockbackCount = kc;
-        knockbackLength = kl;
-        knockFromRight = kfr;
-    }*/
-
     public void UpdateHealth(int h) {
         health += h;
         Debug.Log(health);
+        gm.SetPlayerHealth(health);
         if (health <= 0) {
 
             isDead = true;
@@ -145,9 +142,12 @@ public class PlayerController : MonoBehaviour
         jump = 0;
     }
 
-    public int GetHealth() {
+    /*public int GetHealth() {
         return health;
     }
+    public int GetMaxHealth() {
+        return ma
+    }*/
 
     IEnumerator Pause() {
         yield return new WaitForSeconds(3f);
