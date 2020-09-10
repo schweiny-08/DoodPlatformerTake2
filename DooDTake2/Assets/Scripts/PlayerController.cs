@@ -45,19 +45,10 @@ public class PlayerController : MonoBehaviour
         doodSize = sr.size;
     }
 
-   /* public void SetKnockbackVars(float k, float kc, float kl, bool kfr) {
-        knockback = k;
-        knockbackCount = kc;
-        knockbackLength = kl;
-        knockFromRight = kfr;
-    }*/
-
-
-
     public void UpdateHealth(int h) {
         health += h;
-        gm.SetPlayerHealth(health);
         Debug.Log(health);
+        gm.SetPlayerHealth(health);
         if (health <= 0) {
 
             isDead = true;

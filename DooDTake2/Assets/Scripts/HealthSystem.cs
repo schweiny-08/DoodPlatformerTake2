@@ -22,26 +22,38 @@ public class HealthSystem : MonoBehaviour{
 
 
     void Start() {
-        pc = GetComponent<PlayerController>();
-        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
+        //pc = GetComponent<PlayerController>();
+        gm = GetComponent<GameMaster>();
 
-        heartNum = (gm.GetMaxPlayerHealth() / 4);
+        //heartNum = (gm.GetMaxPlayerHealth() / 4);
         Debug.Log("HEALTHSTART");
+
+        //heartNum = (gm.GetMaxPlayerHealth() / 4);
 
         for (int i = 0; i < hearts.Length; i++)
         {
+            //hearts[i].sprite = fullHeart; 
             hearts[i].enabled = false;
         }
 
+        InitialiseHearts();
+
         /*maxHealth = gm.GetMaxHealth();
         health = maxHealth;*/
+    }
+
+    public void InitialiseHearts() {
+        heartNum = (gm.GetMaxPlayerHealth() / 4);
+        StartCoroutine("CheckMaxHearts");
+        Debug.Log("MAXHEALTH" + gm.GetMaxPlayerHealth());
+        Debug.Log("HEARTNUM" + heartNum);
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        StartCoroutine("CheckMaxHearts");
+        
 
         StartCoroutine("CheckPlayerHealth");
     }
@@ -53,7 +65,6 @@ public class HealthSystem : MonoBehaviour{
     IEnumerator CheckMaxHearts() {
 
         
-        //Debug.Log(gm.GetMaxPlayerHealth());
 
         for (int i = 0; i < heartNum; i++)
         {
@@ -81,8 +92,11 @@ public class HealthSystem : MonoBehaviour{
                 break;
 
             case 0:
-                hearts[heartNum].sprite = emptyHeart;
-                heartNum = gm.GetPlayerHealth()/4;
+                //heartNum = gm.GetPlayerHealth() / 4;
+                //Debug.Log("HEARTNUM" + heartNum);
+                hearts[heartNum-1].sprite = emptyHeart;
+                heartNum--;
+                
                 break;
 
             default:
