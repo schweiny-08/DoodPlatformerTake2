@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jumpSpeed;
     public Sprite deadDood;
+    public AudioClip doodDeadAudio;
 
 
     private Rigidbody2D rb;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private HealthSystem hs;
     private bool isDead;
     private Vector2 doodSize;
+    private AudioSource audio;
     
     public float knockback;
     public float knockbackCount;
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
         isGrounded = true;
         jump = 0;
         anim = GetComponent<Animator>();
+        audio = GetComponent<AudioSource>();
         
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
         health = gm.GetMaxPlayerHealth();//Sets health to full
@@ -43,6 +46,10 @@ public class PlayerController : MonoBehaviour
         hs = GetComponent<HealthSystem>();
         isDead = false;
         doodSize = sr.size;
+    }
+
+    public bool IsDead() {
+        return isDead;
     }
 
     public void UpdateHealth(int h) {
@@ -55,9 +62,10 @@ public class PlayerController : MonoBehaviour
             rb.freezeRotation = false;
             transform.rotation *= Quaternion.Euler(0, 0, 90f);// * 20f * Time.deltaTime);//10f = rotate speed
 
-            Debug.Log("Before");
+            audio.PlayOneShot(doodDeadAudio, 0.5f);
+            //Debug.Log("Before");
             StartCoroutine(Pause());
-            Debug.Log("After");
+            //Debug.Log("After");
 
             
         }

@@ -33,7 +33,7 @@ public class GameMaster : MonoBehaviour {
     void Start() {
         spawnPoint = GameObject.Find("startPoint").transform.position;
         cf = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
-        maxPlayerHealth = 8;
+        maxPlayerHealth = 4;
         playerHealth = maxPlayerHealth;
 
         InitialiseHearts();
@@ -101,7 +101,7 @@ public class GameMaster : MonoBehaviour {
 
                 heartNum = playerHealth / 4;
 
-                Debug.Log("HEALTH " + playerHealth);
+               // Debug.Log("HEALTH " + playerHealth);
 
                 hearts[heartNum].sprite = emptyHeart;
                 //heartNum--;

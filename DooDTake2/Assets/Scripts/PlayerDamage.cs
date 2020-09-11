@@ -5,21 +5,22 @@ using UnityEngine;
 public class PlayerDamage : MonoBehaviour{
 
     public int damagePoints;
-    
-    /*private float knockback;
-    private float knockbackLength;
-    private float knockbackCount;
-    private bool knockFromRight;*/
+    public AudioClip doodHit;
 
     private GameObject player;
     private PlayerController pc;
+    private AudioSource audio;
+    private GameMaster gm;
+    
+    //public AudioClip doodHit;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         pc = player.GetComponent<PlayerController>();
+        audio = player.GetComponent<AudioSource>();
 
-        
+        gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
     }
 
     void OnTriggerEnter2D(Collider2D col)
@@ -28,14 +29,18 @@ public class PlayerDamage : MonoBehaviour{
         {
             player = GameObject.FindWithTag("Player");
             pc = player.GetComponent<PlayerController>();
+            audio = player.GetComponent<AudioSource>();
         }
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Player"  && !pc.IsDead())
         {
             //pc.knockback = damagePoints;
             //pc.knockbackLength = damagePoints / 10;
 
             pc.UpdateHealth(-damagePoints);
-            Debug.Log("HIT");
+
+            if(gm.GetPlayerHealth() > 0)
+                audio.PlayOneShot(doodHit, 0.5f);
+            //Debug.Log("HIT");
             //Setting knockback
             pc.knockbackCount = pc.knockbackLength;
 
@@ -47,19 +52,4 @@ public class PlayerDamage : MonoBehaviour{
                 pc.knockFromRight = true;
         }
     }
-
-   /* public bool GetFromRight() {
-        return knockFromRight;
-    }
-    public float GetKnockback() {
-        return knockback;
-    }
-    public float GetKnockCount()
-    {
-        return knockbackCount;
-    }
-    public float GetKnockLength()
-    {
-        return knockbackLength;
-    }*/
 }
