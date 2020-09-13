@@ -39,7 +39,7 @@ public class PlayerDamage : MonoBehaviour{
             pc.UpdateHealth(-damagePoints);
 
             if(gm.GetPlayerHealth() > 0)
-                audio.PlayOneShot(doodHit, 0.5f);
+                audio.PlayOneShot(doodHit, 0.75f);
             //Debug.Log("HIT");
             //Setting knockback
             pc.knockbackCount = pc.knockbackLength;
