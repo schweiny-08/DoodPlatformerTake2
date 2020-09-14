@@ -18,7 +18,10 @@ public class HealthRegen : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D col) {
-        if (col.gameObject.tag == "Player") {
+        if(pc == null)
+            pc = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
+        if (col.gameObject.tag == "Player" && gm.GetMaxPlayerHealth() > gm.GetPlayerHealth()) {
             pc.UpdateHealth(health);
             //gm.SetPlayerHealth(health);
             Destroy(gameObject);
