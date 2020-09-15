@@ -24,7 +24,7 @@ public class GameMaster : MonoBehaviour {
 
     public Image[] hearts;
 
-    private int heartNum;
+    private int heartNum, prevHN;
 
     void Awake() {
         instance = this;
@@ -50,6 +50,18 @@ public class GameMaster : MonoBehaviour {
 
     public void SetPlayerHealth(int h) {
         playerHealth = h;
+    }
+
+    public void SetMaxPlayerHealth(int h) {
+        
+        playerCont = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+
+        maxPlayerHealth += h;
+        playerHealth = maxPlayerHealth;
+        playerCont.health = playerHealth;
+        InitialiseHearts();
+
+        Debug.Log("MAX" + maxPlayerHealth + " PLAYERHEALTH" + playerHealth + " PLAYERCONTHEALTH" + playerCont.health);
     }
 
     public int GetPlayerHealth() {
@@ -99,11 +111,15 @@ public class GameMaster : MonoBehaviour {
 
             case 0:
 
+                prevHN = heartNum;
                 heartNum = playerHealth / 4;
 
-               // Debug.Log("HEALTH " + playerHealth);
+                // Debug.Log("HEALTH " + playerHealth);
 
-                hearts[heartNum].sprite = emptyHeart;
+                if (prevHN == heartNum)
+                    hearts[heartNum].sprite = emptyHeart;
+                else
+                    hearts[heartNum].sprite = fullHeart;
                 //heartNum--;
                 break;
 

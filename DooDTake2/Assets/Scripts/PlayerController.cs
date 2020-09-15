@@ -16,14 +16,15 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sr;
     private Animator anim;
     private bool isGrounded;
-    private int jump, health;
+    private int jump;
     private GameMaster gm;
     private PlayerDamage pd;
     private HealthSystem hs;
     private bool isDead;
     private Vector2 doodSize;
     private AudioSource audio;
-    
+
+    public int health;
     public float knockback;
     public float knockbackCount;
     public float knockbackLength;
@@ -53,14 +54,15 @@ public class PlayerController : MonoBehaviour
     }
 
     public void UpdateHealth(int h) {
+        Debug.Log("HERE "+health);
         health += h;
-        Debug.Log(health);
+        
         gm.SetPlayerHealth(health);
         if (health <= 0) {
 
             isDead = true;
             rb.freezeRotation = false;
-            transform.rotation *= Quaternion.Euler(0, 0, 90f);// * 20f * Time.deltaTime);//10f = rotate speed
+            transform.rotation *= Quaternion.Euler(0, 0, 90f);//10f = rotate speed
 
             audio.PlayOneShot(doodDeadAudio, 0.5f);
             //Debug.Log("Before");
