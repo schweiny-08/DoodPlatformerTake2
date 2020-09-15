@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5317466811016725458}
   m_Layer: 0
   m_Name: checkPoint
-  m_TagString: Untagged
+  m_TagString: CheckPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,7 +116,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c79aeea1214656d4ca4ba96add6521b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActivated: 0
+  anim: {fileID: 0}
   activatedFlag: {fileID: 9100000, guid: f7ab3db2d94ed7f41b3ecde6f4e5ead1, type: 2}
+  deActiveFlag: {fileID: 9100000, guid: a5b65198d9677694c936ba08c1ec60be, type: 2}
 --- !u!61 &5317466811016725458
 BoxCollider2D:
   m_ObjectHideFlags: 0

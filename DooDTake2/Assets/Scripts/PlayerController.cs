@@ -58,6 +58,10 @@ public class PlayerController : MonoBehaviour
         health += h;
         
         gm.SetPlayerHealth(health);
+
+        if (health == gm.GetMaxPlayerHealth())
+            gm.InitialiseHearts();
+
         if (health <= 0) {
 
             isDead = true;

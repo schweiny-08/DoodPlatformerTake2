@@ -120,6 +120,8 @@ public class GameMaster : MonoBehaviour {
                     hearts[heartNum].sprite = emptyHeart;
                 else
                     hearts[heartNum].sprite = fullHeart;
+
+               
                 //heartNum--;
                 break;
 
