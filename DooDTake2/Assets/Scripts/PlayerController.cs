@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         
         gm = GameObject.Find("GameMaster").GetComponent<GameMaster>();
         health = gm.GetMaxPlayerHealth();//Sets health to full
-        pd = GameObject.FindWithTag("Enemy").GetComponent<PlayerDamage>();
+        //pd = GameObject.FindWithTag("Enemy").GetComponent<PlayerDamage>();
         hs = GetComponent<HealthSystem>();
         isDead = false;
         doodSize = sr.size;
@@ -54,11 +54,11 @@ public class PlayerController : MonoBehaviour
     }
 
     public void UpdateHealth(int h) {
-        Debug.Log("HERE "+health);
+        
         health += h;
         
         gm.SetPlayerHealth(health);
-
+        Debug.Log("HERE " + health);
         if (health == gm.GetMaxPlayerHealth())
             gm.InitialiseHearts();
 

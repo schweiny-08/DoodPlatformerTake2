@@ -116,7 +116,7 @@ public class GameMaster : MonoBehaviour {
 
                 // Debug.Log("HEALTH " + playerHealth);
 
-                if (prevHN == heartNum)
+                if (prevHN == heartNum )
                     hearts[heartNum].sprite = emptyHeart;
                 else
                     hearts[heartNum].sprite = fullHeart;
