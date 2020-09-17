@@ -18,8 +18,20 @@ public class GroundDetector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         RaycastHit2D groundDetect = Physics2D.Raycast(detector.position, Vector2.down, 1f);
-        if (groundDetect.collider == null){
+        if (groundDetect.collider == null)
+        {
+            if (isRight)
+                isRight = false;
+            else
+                isRight = true;
+        }
+
+        RaycastHit2D wallDetect = Physics2D.Raycast(detector.position, Vector2.right, 0.1f);
+        if (wallDetect.transform.gameObject.tag == "Ground")
+        {
             if (isRight)
                 isRight = false;
             else

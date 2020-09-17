@@ -23,6 +23,8 @@ public class GameMaster : MonoBehaviour {
     public Sprite emptyHeart;
 
     public Image[] hearts;
+    public GameObject[] greenDoods;
+    public GameObject[] heartShards;
 
     private int heartNum, prevHN;
 
@@ -35,6 +37,9 @@ public class GameMaster : MonoBehaviour {
         cf = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
         maxPlayerHealth = 4;
         playerHealth = maxPlayerHealth;
+
+        greenDoods = GameObject.FindGameObjectsWithTag("GreenDoods");
+        heartShards = GameObject.FindGameObjectsWithTag("HeartShard");
 
         InitialiseHearts();
         //hs = GetComponent<HealthSystem>();
@@ -141,5 +146,21 @@ public class GameMaster : MonoBehaviour {
         Instantiate(player, spawnPoint, Quaternion.identity);
         playerCont = player.GetComponent<PlayerController>();
         InitialiseHearts();
+
+        for (int i = 0; i < greenDoods.Length; i++)
+        {
+            greenDoods[1].GetComponent<PlayerDamageFromEnemy>().damagePoints = 2;
+            greenDoods[i].GetComponent<PlayerDamageFromEnemy>().enabled = true;
+            greenDoods[i].GetComponent<PolygonCollider2D>().enabled = true;
+            greenDoods[i].GetComponent<SpriteRenderer>().enabled = true;
+            greenDoods[i].GetComponent<Animator>().enabled = true;
+        }
+
+        for (int i = 0; i < heartShards.Length; i++)
+        {
+            heartShards[i].GetComponent<BoxCollider2D>().enabled = true;
+            heartShards[i].GetComponent<SpriteRenderer>().enabled = true;
+            heartShards[i].GetComponent<Animation>().enabled = true;
+        }
     }   
 }

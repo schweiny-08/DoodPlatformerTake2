@@ -23,8 +23,14 @@ public class HealthRegen : MonoBehaviour
 
         if (col.gameObject.tag == "Player" && gm.GetMaxPlayerHealth() > gm.GetPlayerHealth()) {
             pc.UpdateHealth(health);
+
+            //GetComponent<PlayerDamageFromEnemy>().damagePoints = 0;
+            //GetComponent<PlayerDamageFromEnemy>().enabled = false;
+            GetComponent<BoxCollider2D>().enabled = false;
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Animation>().enabled = false;
             //gm.SetPlayerHealth(health);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }
