@@ -28,7 +28,7 @@ public class GroundDetector : MonoBehaviour
             else
                 isRight = true;
         }
-
+/*
         RaycastHit2D wallDetect = Physics2D.Raycast(detector.position, Vector2.right, 0.1f);
         if (wallDetect.transform.gameObject.tag == "Ground")
         {
@@ -36,6 +36,6 @@ public class GroundDetector : MonoBehaviour
                 isRight = false;
             else
                 isRight = true;
-        }
+        }*/
     }
 }
