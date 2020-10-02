@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using UnityEngine.SceneManagement;
+
 public class GameMaster : MonoBehaviour {
     public static GameMaster instance;
     public GameObject player;
+
+    public int index;
 
     private GameObject playerClone;
     private Vector2 spawnPoint;
@@ -24,12 +28,13 @@ public class GameMaster : MonoBehaviour {
 
     public Image[] hearts;
     public GameObject[] greenDoods;
-    public GameObject[] heartShards;
+    private GameObject[] heartShards;
 
     private int heartNum, prevHN;
 
     void Awake() {
         instance = this;
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start() {
@@ -142,25 +147,29 @@ public class GameMaster : MonoBehaviour {
     }
 
     public void Respawn() {
-        Debug.Log("RESPAWN");
-        Instantiate(player, spawnPoint, Quaternion.identity);
-        playerCont = player.GetComponent<PlayerController>();
-        InitialiseHearts();
 
-        for (int i = 0; i < greenDoods.Length; i++)
-        {
-            greenDoods[1].GetComponent<PlayerDamageFromEnemy>().damagePoints = 2;
-            greenDoods[i].GetComponent<PlayerDamageFromEnemy>().enabled = true;
-            greenDoods[i].GetComponent<PolygonCollider2D>().enabled = true;
-            greenDoods[i].GetComponent<SpriteRenderer>().enabled = true;
-            greenDoods[i].GetComponent<Animator>().enabled = true;
-        }
+        //if (!GameObject.FindWithTag("Player"))
+        //{
+            Debug.Log("RESPAWN");
+            Instantiate(player, spawnPoint, Quaternion.identity);
+            playerCont = player.GetComponent<PlayerController>();
+            InitialiseHearts();
 
-        for (int i = 0; i < heartShards.Length; i++)
-        {
-            heartShards[i].GetComponent<BoxCollider2D>().enabled = true;
-            heartShards[i].GetComponent<SpriteRenderer>().enabled = true;
-            heartShards[i].GetComponent<Animation>().enabled = true;
-        }
+            for (int i = 0; i < greenDoods.Length; i++)
+            {
+                greenDoods[1].GetComponent<PlayerDamageFromEnemy>().damagePoints = 2;
+                greenDoods[i].GetComponent<PlayerDamageFromEnemy>().enabled = true;
+                greenDoods[i].GetComponent<PolygonCollider2D>().enabled = true;
+                greenDoods[i].GetComponent<SpriteRenderer>().enabled = true;
+                greenDoods[i].GetComponent<Animator>().enabled = true;
+            }
+
+            for (int i = 0; i < heartShards.Length; i++)
+            {
+                heartShards[i].GetComponent<BoxCollider2D>().enabled = true;
+                heartShards[i].GetComponent<SpriteRenderer>().enabled = true;
+                heartShards[i].GetComponent<Animation>().enabled = true;
+            }
+        //}
     }   
 }

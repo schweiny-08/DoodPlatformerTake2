@@ -152,3 +152,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damagePoints: 2
+  doodHit: {fileID: 8300000, guid: 5fccca22384cbe444864ea40886bd620, type: 3}
