@@ -11,6 +11,8 @@ public class GameMaster : MonoBehaviour {
 
     public int index;
 
+    public int lvlIndex;
+
     private GameObject playerClone;
     private Vector2 spawnPoint;
     private CameraFollow cf;
@@ -28,16 +30,28 @@ public class GameMaster : MonoBehaviour {
 
     public Image[] hearts;
     public GameObject[] greenDoods;
-    private GameObject[] heartShards;
+    public GameObject[] heartShards;
 
     private int heartNum, prevHN;
 
     void Awake() {
         instance = this;
-        //DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(GameObject.Find("Canvas"));
+
+        hearts[0] = GameObject.Find("Heart").GetComponent<Image>();
+        hearts[1] = GameObject.Find("Heart (1)").GetComponent<Image>();
+        hearts[2] = GameObject.Find("Heart (2)").GetComponent<Image>();
+        hearts[3] = GameObject.Find("Heart (3)").GetComponent<Image>();
+        hearts[4] = GameObject.Find("Heart (4)").GetComponent<Image>();
+
+        InitialiseHearts();
     }
 
     void Start() {
+        
+
+
         spawnPoint = GameObject.Find("startPoint").transform.position;
         cf = GameObject.FindWithTag("MainCamera").GetComponent<CameraFollow>();
         maxPlayerHealth = 4;
@@ -48,6 +62,8 @@ public class GameMaster : MonoBehaviour {
 
         InitialiseHearts();
         //hs = GetComponent<HealthSystem>();
+
+        //lvlIndex = 0;
     }
 
     void Update(){
@@ -82,8 +98,11 @@ public class GameMaster : MonoBehaviour {
         return maxPlayerHealth;
     }
 
-    public void InitialiseHearts() {
+    public void InitialiseHearts() { 
+
         playerHealth = maxPlayerHealth;
+
+        Debug.Log(maxPlayerHealth);
 
         heartNum = maxPlayerHealth / 4;
 
@@ -101,6 +120,8 @@ public class GameMaster : MonoBehaviour {
 
     IEnumerator CheckPlayerHealth()
     {
+
+
         //health = playerHealth;
 
         //Debug.Log("HEARTNUM " + heartNum);
@@ -148,9 +169,12 @@ public class GameMaster : MonoBehaviour {
 
     public void Respawn() {
 
+        greenDoods = GameObject.FindGameObjectsWithTag("GreenDoods");
+        heartShards = GameObject.FindGameObjectsWithTag("HeartShard");
+
         //if (!GameObject.FindWithTag("Player"))
         //{
-            Debug.Log("RESPAWN");
+        Debug.Log("RESPAWN");
             Instantiate(player, spawnPoint, Quaternion.identity);
             playerCont = player.GetComponent<PlayerController>();
             InitialiseHearts();

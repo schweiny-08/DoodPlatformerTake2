@@ -8,6 +8,10 @@ public class TextBoxDetector : MonoBehaviour
     public string text;
     public Text TextBox;
 
+    void Start() {
+        TextBox = GameObject.Find("Text").GetComponent<Text>();
+    }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Player")

@@ -67,7 +67,8 @@ public class PlayerController : MonoBehaviour
             isDead = true;
             rb.freezeRotation = false;
             transform.rotation *= Quaternion.Euler(0, 0, 90f);//10f = rotate speed
-
+            //rb.enabled = false;
+            GetComponent<PolygonCollider2D>().enabled = false;
             audio.PlayOneShot(doodDeadAudio, 0.5f);
             //Debug.Log("Before");
             StartCoroutine(Pause());
